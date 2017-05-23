@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Slither Ad</title>
+    <style type="text/css">
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    #container {
+        width: 560px;
+        height: 560px;
+        background-color: #81ca9c;
+        border: 20px solid #d1b1f5;
+    }
+    
+
+    /* APPLE + SNAKE */
+    #apple1 img {
+        position: absolute;
+        top: -30px;
+        left: -110px;
+        height: 60px;
+        width: 60px;
+        -moz-transform: rotate(5deg);
+        -webkit-transform: rotate(5deg);
+        transform: rotate(5deg);
+    }
+    #apple2 img {
+        position: absolute;
+        top: -30px;
+        right: -110px;
+        height: 60px;
+        width: 60px;
+        -moz-transform: rotate(-10deg);
+        -webkit-transform: rotate(-10deg);
+        transform: rotate(-10deg);
+    }
+    #apple3 img {
+        position: absolute;
+        bottom: -30px;
+        left: -110px;
+        height: 60px;
+        width: 60px;
+        -moz-transform: rotate(15deg);
+        -webkit-transform: rotate(15deg);
+        transform: rotate(15deg);
+    }
+    #apple4 img {
+        position: absolute;
+        bottom: -30px;
+        right: -110px;
+        height: 60px;
+        width: 60px;
+        -moz-transform: rotate(-5deg);
+        -webkit-transform: rotate(-5deg);
+        transform: rotate(-5deg);
+    }
+    #snake {
+        position: relative;
+        margin: 0px auto;
+        top: 40px;
+        width: 150px;
+        height: 200px;
+    }
+    #snake #snake_img {
+        width: 190px;
+        height: auto;
+        -moz-transform: rotate(10deg);
+        -webkit-transform: rotate(10deg);
+        transform: rotate(10deg);
+    }
+
+
+    /* TEXT */
+    @font-face {
+        font-family: Showcard Gothic;
+        src: url("SHOWG.ttf");
+    }
+    #text_main {
+        margin-top: 80px;
+        text-align: center;
+    }
+    p {
+        text-transform: capitalize;
+        font-family: "Showcard Gothic", sans-serif;
+        color: #7d1aec;
+        text-transform: uppercase;
+        font-size: 18px;
+    }
+    h1 {
+        text-transform: capitalize;
+        font-family: "Showcard Gothic", sans-serif;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    #small {
+        text-transform: capitalize;
+        font-family: "Showcard Gothic", sans-serif;
+        color: #7d1aec;
+        text-transform: uppercase;
+        font-size: 10px;
+    }
+
+    #side {
+        position: relative;
+        top: -55px;
+        left: 340px;
+        width: 220px;
+        text-align: center;
+    }
+    #side p {
+        font-size: 14px;
+
+    }
+    #side img {
+        height: 45px;
+        width: 45px;
+    }
+    #small_side {
+        text-transform: capitalize;
+        font-family: "Showcard Gothic", sans-serif;
+        color: #7d1aec;
+        text-transform: uppercase;
+        font-size: 10px;
+    }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <div id="snake"> 
+            <div id="apple1">
+                <img src="images/boosts/point_boost-main_apple.png" alt="apple">
+            </div> <!-- close apple1 -->
+            <div id="apple2">
+                <img src="images/boosts/point_boost-main_apple.png" alt="apple">
+            </div> <!-- close apple2 -->
+            <div id="apple3">
+                <img src="images/boosts/point_boost-main_apple.png" alt="apple">
+            </div> <!-- close apple3 -->
+            <div id="apple4">
+                <img src="images/boosts/point_boost-main_apple.png" alt="apple">
+            </div> <!-- close apple4 -->
+            <img id="snake_img" src="images/themes/snake_theme-head.png" alt="snake" >
+        </div> <!-- close snake -->
+
+        <div id="text_main">
+            <p>Woah! A new spin on snake! Introducing:</p>
+            <br />
+            <h1>Slither</h1>  
+            <br />
+            <p>You will never be bored again!</p>
+            <p>New power-ups!! <span id="small">(And down-grades)</span></p>
+            <p>New skins! There's buttery toast!</p>
+            <br />
+            <p>Buttery.</p>
+            <p>Gosh darn.</p>
+            <p>Toast.</p>
+        </div> <!-- close text_main -->
+
+        <div id="side">
+            <p>Upgrades sneak peek!</p>
+            <img src="images/boosts/lucky_charm.png" alt="lucky charm"><img src="images/boosts/screen- arrows.png" alt="screen boost"><img src="images/boosts/speed- winged_shoe.png" alt="speed boost">
+            <h6 id="small_side">(...or downgrades)</h6>
+        </div> <!-- close side>
+    </div>
+  
+</body>
+
+</html>
