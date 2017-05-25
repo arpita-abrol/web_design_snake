@@ -1,0 +1,96 @@
+<!DOCTYPE html> 
+<html>
+<!--<html manifest="snake.appcache">-->
+<head lang="en">
+<!--
+
+JavaScript Snake
+By Patrick Gillespie
+http://patorjk.com/games/snake
+
+Source code is available here: https://github.com/patorjk/JavaScript-Snake
+
+--> 
+    <title>Slither</title>
+    <link rel="stylesheet" id="style" type="text/css" href="./css/main-snake.css" />
+
+    <!-- Buttons: Top Stuff -->
+    <button onclick=getTheme()>Click to use this theme.</button>
+    <select id="select">
+        <option>Dark Theme</option>
+        <option>Revert To Original</option>
+        <option>Toast/Butter Theme</option>
+    </select>
+
+    <div id="mode-wrapper">
+    	Select which mode you would like to play in.
+    	<br />
+    	<button id="Easy">Easy</button>
+    	<br />
+    	<button id="Medium">Medium</button>
+    	<br />
+    	<button id="Difficult">Difficult</button>
+    </div>
+
+	<button id="high-score">Get your current high score for this game.</button>
+
+	<script>
+	function getTheme () {
+	    function changeTheme (Theme) {
+	        document.getElementById('style').setAttribute('href', Theme);
+	    }
+	    var index = document.getElementById("select").selectedIndex;
+	    switch (index) {
+	        case 0: 
+	          changeTheme('css/dark-snake.css');
+	          break;
+	        case 1: changeTheme('css/main-snake.css');
+	        break;
+	        case 2: changeTheme('css/toast.css');
+	    }
+	}
+	</script>
+</head>
+
+<body>
+    <div id="game-area" tabindex="0">
+    </div>
+
+    <script type="text/javascript" src="./js/snake.js"></script>
+    <script type="text/javascript">
+	    var mySnakeBoard = new SNAKE.Board(  {
+	    	boardContainer: "game-area",
+	    	fullScreen: false,
+	    	width: 800,
+	    	height:800
+	    });    
+    </script>
+
+</body>
+</html>
+
+	<!-- <canvas id="myCanvas"></canvas>
+	
+	<script>
+
+	// setup canvas
+	var canvas = document.getElementById("myCanvas");
+	var ctx = canvas.getContext("2d");
+	canvas.width = 800;
+	canvas.height = 800;
+
+	// title screen
+	var title = 0; // 0 = true; title screen shows
+	var level = 1; // 1 = default level; can be changed
+	var theme = 0; // 0 = default theme
+
+
+	// Sample Writing/Drawing
+	ctx.fillStyle = "rgb(250, 250, 250)";
+	ctx.font = "24px Helvetica";
+	ctx.textAlign = "left";
+	ctx.textBaseline = "top";
+	ctx.fillText("Monsterrs caught: ", 32, 32);
+
+	</script>
+-->
