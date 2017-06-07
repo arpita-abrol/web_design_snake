@@ -7,7 +7,7 @@ http://patorjk.com/games/snake
 body {
     margin: 0px;
     padding: 0px;
-    background-image: url('./images/themes/breakfast_theme-back.png');
+    background-image: url('./images/themes/cloud_theme-back.jpg');
     background-repeat: repeat;
 }
 
@@ -24,8 +24,8 @@ p {
 /*---- Change Buttons: Top section ----*/
 #selections {
     margin: 0px auto;
-    background-color: #d2b48c;
-    border: 1px solid black;
+    background-color: white;
+    border: 1px solid #003366;
     width: 267px;
     padding-left: 10px;
     padding-right: 10px;
@@ -35,13 +35,13 @@ p {
 #mode-wrapper {
     font-family: Verdana, arial, helvetica, sans-serif; 
     font-size: 14px;
-    color: #ffff00;
+    color: #003366;
 }
 
 select, button {
     border: black;
-    color: black;
-    background: #ffff00;
+    color: white;
+    background: #003366;
 }
 
 #high-score {
@@ -66,15 +66,15 @@ select, button {
     margin: 0px;
     padding: 0px;
     position: absolute;
-    background-color: #d2b48c;
+    background-color: white;
 }
 
 .snake-game-container { /* Main background- border */
     margin: 0px;
     padding: 0px;
-    border: 2px solid black;
+    border: 2px solid white;
     zoom: 1;
-    background-color: #ffff00;
+    background-color: #003366;
     position: relative;
 }
 
@@ -84,9 +84,9 @@ select, button {
     position: absolute;
     font-family: Verdana, arial, helvetica, sans-serif; 
     font-size: 14px;
-    color: black;
+    color: white;
     text-align: center;
-    background-color: #ffff00;
+    background-color: #003366;
     padding: 8px;
     margin: 0px;
 }
@@ -104,7 +104,7 @@ a.snake-link:hover {
 .snake-snakebody-block {
     margin: 0px;
     padding: 0px;
-    background-color: #3E2E44;
+    background-color: white;
     position: absolute;
     border: 0px solid black;
     background-repeat: no-repeat;
@@ -112,7 +112,7 @@ a.snake-link:hover {
 
 .snake-snakebody-alive { /* Snake Body block */
 
-    background-image: url('./images/themes/breakfast_theme-toast.png'); /* NOte: currently too light */;
+    background-image: url('./images/themes/cloud_theme-head.png'); /* NOte: currently too light */;
 
 }
 .snake-snakebody-dead { /* Snake Body dead block */
@@ -124,7 +124,7 @@ a.snake-link:hover {
 .snake-food-block {
     margin: 0px;
     padding: 0px;
-    background-image: url('./images/themes/breakfast_theme-butter.png');
+    background-image: url('./images/themes/cloud_theme-food.png');
     border: 2px solid #3E2E44;
     position: absolute;
 }

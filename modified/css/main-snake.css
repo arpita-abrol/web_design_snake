@@ -11,12 +11,22 @@ body {
     background-repeat: repeat;
 }
 
+p {
+    font-family: Verdana, arial, helvetica, sans-serif; 
+    font-size: 16px;
+    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    font-weight: bold;
+    text-align: center;
+}
+
 /*---- Change Buttons: Top section ----*/
 #selections {
     margin: 0px auto;
     background-color: #ababab;
     border: 1px solid white;
-    width: 300px;
+    width: 267px;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 10px;

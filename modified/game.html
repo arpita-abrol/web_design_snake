@@ -17,9 +17,10 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
     <!-- Buttons: Top Stuff -->
 	<div id="selections">
 		<select id="select">
-			<option>Dark Theme</option>
-			<option>Revert To Original</option>
-			<option>Toast/Butter Theme</option>
+			<option>Snake</option>
+			<option>Toast and Butter</option>
+			<option>Space Theme</option>
+			<option>Cloud Theme</option>
 		</select>
 		<button onclick=getTheme()>Apply theme</button>
 
@@ -43,12 +44,18 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
 	    }
 	    var index = document.getElementById("select").selectedIndex;
 	    switch (index) {
-	        case 0: 
-	          changeTheme('css/dark-snake.css');
-	          break;
-	        case 1: changeTheme('css/main-snake.css');
-	        break;
-	        case 2: changeTheme('css/toast.css');
+	        case 0:
+				changeTheme('css/main-snake.css');
+				break;
+	        case 1: 
+				changeTheme('css/toast.css');
+	        	break;
+	        case 2: 
+				changeTheme('css/dark-snake.css');
+				break;
+			case 3:
+				changeTheme('css/clouds.css');
+				break;
 	    }
 	}
 	</script>
@@ -69,6 +76,6 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
 	    	height:800
 	    });    
     </script>
-
+	<p>&copy; Team Snek 2017</p>
 </body>
 </html>
