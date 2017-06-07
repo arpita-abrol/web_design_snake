@@ -15,24 +15,26 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
     <link rel="stylesheet" id="style" type="text/css" href="./css/main-snake.css" />
 
     <!-- Buttons: Top Stuff -->
-    <button onclick=getTheme()>Click to use this theme.</button>
-    <select id="select">
-        <option>Dark Theme</option>
-        <option>Revert To Original</option>
-        <option>Toast/Butter Theme</option>
-    </select>
+	<div id="selections">
+		<select id="select">
+			<option>Dark Theme</option>
+			<option>Revert To Original</option>
+			<option>Toast/Butter Theme</option>
+		</select>
+		<button onclick=getTheme()>Apply theme</button>
 
-    <div id="mode-wrapper">
-    	Select which mode you would like to play in.
-    	<br />
-    	<button id="Easy">Easy</button>
-    	<br />
-    	<button id="Medium">Medium</button>
-    	<br />
-    	<button id="Difficult">Difficult</button>
-    </div>
+		<div id="mode-wrapper">
+			<b>Difficulty</b>
+			<br />
+			<button id="Easy">Easy</button>
+			<br />
+			<button id="Medium">Medium</button>
+			<br />
+			<button id="Difficult">Difficult</button>
+		</div>
 
-	<button id="high-score">Get your current high score for this game.</button>
+		<button id="high-score">Current high score</button>
+	</div>
 
 	<script>
 	function getTheme () {
@@ -52,6 +54,8 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
 	</script>
 </head>
 
+
+
 <body>
     <div id="game-area" tabindex="0">
     </div>
@@ -68,29 +72,3 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
 
 </body>
 </html>
-
-	<!-- <canvas id="myCanvas"></canvas>
-	
-	<script>
-
-	// setup canvas
-	var canvas = document.getElementById("myCanvas");
-	var ctx = canvas.getContext("2d");
-	canvas.width = 800;
-	canvas.height = 800;
-
-	// title screen
-	var title = 0; // 0 = true; title screen shows
-	var level = 1; // 1 = default level; can be changed
-	var theme = 0; // 0 = default theme
-
-
-	// Sample Writing/Drawing
-	ctx.fillStyle = "rgb(250, 250, 250)";
-	ctx.font = "24px Helvetica";
-	ctx.textAlign = "left";
-	ctx.textBaseline = "top";
-	ctx.fillText("Monsterrs caught: ", 32, 32);
-
-	</script>
--->

@@ -9,7 +9,12 @@ http://patorjk.com/games/snake
 * @class SNAKE
 */
 
+/**
+GLOBAL VARIABLES
+**/
 var SNAKE = SNAKE || {};
+var hasPower = false;
+var hasSpeed = false;
 
 /**
 * @method addEventListener
@@ -50,6 +55,8 @@ SNAKE.removeEventListener = (function() {
         };
     }
 })();
+
+
 
 /**
 * This class manages the snake which will reside inside of a SNAKE.Board object.
@@ -125,9 +132,9 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             snakeSpeed = 75,
             isDead = false,
             isPaused = false;
-        function getMode (mode, speed) {
-    document.getElementById(mode).addEventListener('click', function () { snakeSpeed = speed; });
-}
+            function getMode (mode, speed) {
+                document.getElementById(mode).addEventListener('click', function () { snakeSpeed = speed; });
+            }
             getMode('Easy', 100);
             getMode('Medium', 75);
             getMode('Difficult', 50);
@@ -506,6 +513,106 @@ SNAKE.Food = SNAKE.Food || (function() {
     };
 })();
 
+
+
+/**
+* This class manages the powerup (speed) which the snake will eat.
+* @class speed
+* @constructor
+* @namespace SNAKE
+* @param {Object} config The configuration object for the class. Contains playingBoard (the SNAKE.Board that this food resides in).
+*/
+
+SNAKE.Speed = SNAKE.Speed || (function() {
+    
+    // -------------------------------------------------------------------------
+    // Private static variables and methods
+    // -------------------------------------------------------------------------
+    
+    var instanceNumber = 0;
+    
+    function getRandomPosition(x, y){
+        return Math.floor(Math.random()*(y+1-x)) + x; 
+    }
+    
+    // -------------------------------------------------------------------------
+    // Contructor + public and private definitions
+    // -------------------------------------------------------------------------
+    
+    /*
+        config options:
+            playingBoard - the SnakeBoard that this object belongs too.
+    */
+    return function(config) {
+        
+        if (!config||!config.playingBoard) {return;}
+
+        // ----- private variables -----
+
+        var me = this;
+        var playingBoard = config.playingBoard;
+        var fRow, fColumn;
+        var myId = instanceNumber++;
+
+        var elmFood = document.createElement("div");
+        elmFood.setAttribute("id", "snake-food-"+myId);
+        elmFood.className = "snake-food-block";
+        elmFood.style.width = playingBoard.getBlockWidth() + "px";
+        elmFood.style.height = playingBoard.getBlockHeight() + "px";
+        elmFood.style.left = "-1000px";
+        elmFood.style.top = "-1000px";
+        playingBoard.getBoardContainer().appendChild(elmFood);
+        
+        // ----- public methods -----
+        
+        /**
+        * @method getFoodElement
+        * @return {DOM Element} The div the represents the food.
+        */        
+        me.getFoodElement = function() {
+            return elmSpeed;  
+        };
+        
+        /**
+        * Randomly places the food onto an available location on the playing board.
+        * @method randomlyPlaceFood
+        */    
+        me.randomlyPlaceSpeed = function() {
+            // if there exist some food, clear its presence from the board
+            if (playingBoard.grid[fRow] && playingBoard.grid[fRow][fColumn] === playingBoard.getGridFoodValue()){
+                playingBoard.grid[fRow][fColumn] = 0; 
+            }
+
+            var row = 0, col = 0, numTries = 0;
+
+            var maxRows = playingBoard.grid.length-1;
+            var maxCols = playingBoard.grid[0].length-1;
+            
+            while (playingBoard.grid[row][col] !== 0){
+                row = getRandomPosition(1, maxRows);
+                col = getRandomPosition(1, maxCols);
+
+                // in some cases there may not be any room to put food anywhere
+                // instead of freezing, exit out
+                numTries++;
+                if (numTries > 20000){
+                    row = -1;
+                    col = -1;
+                    break; 
+                } 
+            }
+
+            playingBoard.grid[row][col] = playingBoard.getGridFoodValue();
+            fRow = row;
+            fColumn = col;
+            elmFood.style.top = row * playingBoard.getBlockHeight() + "px";
+            elmFood.style.left = col * playingBoard.getBlockWidth() + "px";
+        };
+    };
+})();
+
+
+
 /**
 * This class manages playing board for the game.
 * @class Board
@@ -614,7 +721,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             elmAboutPanel = document.createElement("div");
             elmAboutPanel.className = "snake-panel-component";
-                        
+            
             elmLengthPanel = document.createElement("div");
             elmLengthPanel.className = "snake-panel-component";
             elmLengthPanel.innerHTML = "Length: 1";
@@ -662,7 +769,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             if (config.fullScreen) {
                 fullScreenText = "On Windows, press F11 to play in Full Screen mode.";   
             }
-            welcomeTxt.innerHTML = "JavaScript Snake<p></p>Use the <strong>arrow keys</strong> on your keyboard to play the game. " + fullScreenText + "<p></p>";
+            welcomeTxt.innerHTML = "Slither<p></p>Use the <strong>arrow keys</strong> on your keyboard to play the game. " + fullScreenText + "<p></p>";
             var welcomeStart = document.createElement("button");
             welcomeStart.appendChild(document.createTextNode("Play Game"));
             var loadGame = function() {
@@ -693,7 +800,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             tmpElm.className = "snake-try-again-dialog";
             
             var tryAgainTxt = document.createElement("div");
-            tryAgainTxt.innerHTML = "JavaScript Snake<p></p>You died :(.<p></p>";
+            tryAgainTxt.innerHTML = "Slither<p></p>You died :(<p></p>";
             var tryAgainStart = document.createElement("button");
             tryAgainStart.appendChild( document.createTextNode("Play Again?"));
             
@@ -983,6 +1090,8 @@ SNAKE.Board = SNAKE.Board || (function() {
         
     }; // end return function
 })();
+
+
 function getHighScore () {
     document.getElementById('high-score').addEventListener('click', function () {
         if (localStorage.jsSnakeHighScore == undefined) alert('You have not played this game yet!');

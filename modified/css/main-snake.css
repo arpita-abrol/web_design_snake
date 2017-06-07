@@ -7,24 +7,36 @@ http://patorjk.com/games/snake
 body {
     margin: 0px;
     padding: 0px;
+    background-image: url('./images/themes/snake_theme-back.jpg');
+    background-repeat: repeat;
 }
 
 /*---- Change Buttons: Top section ----*/
+#selections {
+    margin: 0px auto;
+    background-color: #ababab;
+    border: 1px solid white;
+    width: 300px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    margin-bottom: 5px;
+}
 #mode-wrapper {
     font-family: Verdana, arial, helvetica, sans-serif; 
     font-size: 14px;
-    color: black;
+    color: #3e7123;
 }
 
 select, button {
     border: black;
-    color: #3E2E44;
-    background: lime;
+    color: white;
+    background: #3e7123;
 }
 
 #high-score {
     position: relative;
-    left: 200px;
+    left: 145px;
     bottom: 50px;
 }
 
@@ -45,16 +57,14 @@ select, button {
     padding: 0px;
     position: absolute;
     background-color: #ababab;
-    border: 3px solid black;
 }
 
 .snake-game-container { /* Main background- border */
     margin: 0px;
     padding: 0px;
-    border-width: 0px;
-    border-style: none;
+    border: 2px solid white;
     zoom: 1;
-    background-color: navy;
+    background-color: #3e7123;
     position: relative;
 }
 
@@ -66,7 +76,7 @@ select, button {
     font-size: 14px;
     color: white;
     text-align: center;
-    background-color: navy;
+    background-color: #3e7123;
     padding: 8px;
     margin: 0px;
 }
@@ -92,7 +102,7 @@ a.snake-link:hover {
 
 .snake-snakebody-alive { /* Snake Body block */
 
-    background-image: url('./images/themes/snake_theme-body.png'); /* NOte: currently too light */;
+    background-image: url('./images/themes/snake_theme-head.png'); /* NOte: currently too light */;
 
 }
 .snake-snakebody-dead { /* Snake Body dead block */
@@ -104,16 +114,31 @@ a.snake-link:hover {
 .snake-food-block {
     margin: 0px;
     padding: 0px;
-    background-image: url('./images/themes/snake_theme-snake_food2.png');
+    background-image: url('./images/themes/snake_theme-snake_food.png');
     border: 2px solid #3E2E44;
     position: absolute;
 }
 
+/* Snake Powerup Stuff */
+.snake-powerup-block {
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    position: absolute;
+}
+
+.snake-powerup-block-speed {
+    background-image: url(); 
+}
+
+.snake-powerup-block-apples {
+    background-image: url();
+}
 
 /*---- Popup screens ----*/
 .snake-pause-screen {
     font-family: Verdana, arial, helvetica, sans-serif; 
-    font -size: 14px;
+    font-size: 14px;
     position: absolute;
     width: 300px;
     height: 80px;
