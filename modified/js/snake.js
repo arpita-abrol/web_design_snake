@@ -1,9 +1,3 @@
-/*
-JavaScript Snake
-By Patrick Gillespie
-http://patorjk.com/games/snake
-*/
-
 /**
 * @module Snake
 * @class SNAKE
@@ -13,8 +7,6 @@ http://patorjk.com/games/snake
 GLOBAL VARIABLES
 **/
 var SNAKE = SNAKE || {};
-var hasPower = false;
-var hasSpeed = false;
 
 /**
 * @method addEventListener
@@ -292,11 +284,18 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             if (grid[newHead.row][newHead.col] === 0) {
                 grid[newHead.row][newHead.col] = 1;
                 setTimeout(function(){me.go();}, snakeSpeed);
-            } else if (grid[newHead.row][newHead.col] > 0) {
+            } 
+            else if (grid[newHead.row][newHead.col] > 0) {
                 me.handleDeath();
-            } else if (grid[newHead.row][newHead.col] === playingBoard.getGridFoodValue()) {
+            } 
+            else if (grid[newHead.row][newHead.col] === playingBoard.getGridFoodValue()) {
                 grid[newHead.row][newHead.col] = 1;
                 me.eatFood();
+                setTimeout(function(){me.go();}, snakeSpeed);
+            }
+            else if (grid[newHead.row][newHead.col] === playingBoard.getGridSpeedValue()) {
+                grid[newHead.row][newHead.col] = 1;
+                me.eatSpeed();
                 setTimeout(function(){me.go();}, snakeSpeed);
             }
         };
@@ -329,6 +328,17 @@ SNAKE.Snake = SNAKE.Snake || (function() {
 
             playingBoard.foodEaten();
         };
+
+        me.eatSpeed = function() {
+            if (Math.floor(Math.random()*3) > 0) {
+                snakeSpeed -= 5;
+            }
+            else {
+                snakeSpeed += 5;
+            }
+
+            playingBoard.speedEaten();
+        };
         
         /**
         * This method handles what happens when the snake dies.
@@ -342,7 +352,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                     alert('Congratulations! You have beaten your previous high score, which was ' + highScore + '.');
                         localStorage.setItem('jsSnakeHighScore', me.snakeLength);
                 }
-}
+            }
             recordScore();
             me.snakeHead.elm.style.zIndex = getNextHighestZIndex(me.snakeBody);
             me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-alive\b/,'')
@@ -416,6 +426,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         yPosShift[3] = 0;
     };
 })();
+
 
 /**
 * This class manages the food which the snake will eat.
@@ -520,7 +531,7 @@ SNAKE.Food = SNAKE.Food || (function() {
 * @class speed
 * @constructor
 * @namespace SNAKE
-* @param {Object} config The configuration object for the class. Contains playingBoard (the SNAKE.Board that this food resides in).
+* @param {Object} config The configuration object for the class. Contains playingBoard (the SNAKE.Board that this speed resides in).
 */
 
 SNAKE.Speed = SNAKE.Speed || (function() {
@@ -554,32 +565,32 @@ SNAKE.Speed = SNAKE.Speed || (function() {
         var fRow, fColumn;
         var myId = instanceNumber++;
 
-        var elmFood = document.createElement("div");
-        elmFood.setAttribute("id", "snake-food-"+myId);
-        elmFood.className = "snake-food-block";
-        elmFood.style.width = playingBoard.getBlockWidth() + "px";
-        elmFood.style.height = playingBoard.getBlockHeight() + "px";
-        elmFood.style.left = "-1000px";
-        elmFood.style.top = "-1000px";
-        playingBoard.getBoardContainer().appendChild(elmFood);
+        var elmSpeed = document.createElement("div");
+        elmSpeed.setAttribute("id", "snake-speed-"+myId);
+        elmSpeed.className = "snake-speed-block";
+        elmSpeed.style.width = playingBoard.getBlockWidth() + "px";
+        elmSpeed.style.height = playingBoard.getBlockHeight() + "px";
+        elmSpeed.style.left = "-1000px";
+        elmSpeed.style.top = "-1000px";
+        playingBoard.getBoardContainer().appendChild(elmSpeed);
         
         // ----- public methods -----
         
         /**
-        * @method getFoodElement
-        * @return {DOM Element} The div the represents the food.
+        * @method getSpeedElement
+        * @return {DOM Element} The div the represents the speed.
         */        
-        me.getFoodElement = function() {
+        me.getSpeedElement = function() {
             return elmSpeed;  
         };
         
         /**
-        * Randomly places the food onto an available location on the playing board.
-        * @method randomlyPlaceFood
+        * Randomly places the speed block onto an available location on the playing board.
+        * @method randomlyPlaceSpeed
         */    
         me.randomlyPlaceSpeed = function() {
-            // if there exist some food, clear its presence from the board
-            if (playingBoard.grid[fRow] && playingBoard.grid[fRow][fColumn] === playingBoard.getGridFoodValue()){
+            // if there exist some speed, clear its presence from the board
+            if (playingBoard.grid[fRow] && playingBoard.grid[fRow][fColumn] === playingBoard.getGridSpeedValue()){
                 playingBoard.grid[fRow][fColumn] = 0; 
             }
 
@@ -592,7 +603,7 @@ SNAKE.Speed = SNAKE.Speed || (function() {
                 row = getRandomPosition(1, maxRows);
                 col = getRandomPosition(1, maxCols);
 
-                // in some cases there may not be any room to put food anywhere
+                // in some cases there may not be any room to put speed anywhere
                 // instead of freezing, exit out
                 numTries++;
                 if (numTries > 20000){
@@ -602,11 +613,11 @@ SNAKE.Speed = SNAKE.Speed || (function() {
                 } 
             }
 
-            playingBoard.grid[row][col] = playingBoard.getGridFoodValue();
+            playingBoard.grid[row][col] = playingBoard.getGridSpeedValue();
             fRow = row;
             fColumn = col;
-            elmFood.style.top = row * playingBoard.getBlockHeight() + "px";
-            elmFood.style.left = col * playingBoard.getBlockWidth() + "px";
+            elmSpeed.style.top = row * playingBoard.getBlockHeight() + "px";
+            elmSpeed.style.left = col * playingBoard.getBlockWidth() + "px";
         };
     };
 })();
@@ -692,6 +703,8 @@ SNAKE.Board = SNAKE.Board || (function() {
             blockHeight = 20,
             GRID_FOOD_VALUE = -1, // the value of a spot on the board that represents snake food, MUST BE NEGATIVE
             myFood,
+            GRID_SPEED_VALUE = -1, //VALUE OF A SPOT ON THE BOARD THAT REPRESENTS SNAKE SPEED BOOSTER, MUST BE NEGATIVE
+            mySpeed,
             mySnake,
             boardState = 1, // 0: in active; 1: awaiting game start; 2: playing game
             myKeyListener,
@@ -749,6 +762,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             mySnake = new SNAKE.Snake({playingBoard:me,startRow:2,startCol:2});
             myFood = new SNAKE.Food({playingBoard: me});
+            mySpeed = new SNAKE.Speed({playingBoard: me});
             
             elmWelcome.style.zIndex = 1000;
         }
@@ -877,6 +891,13 @@ SNAKE.Board = SNAKE.Board || (function() {
             return GRID_FOOD_VALUE;
         };
         /**
+        * @method getGridSpeedValue
+        * @return {Number} A number that represents speed on a number representation of the playing board.
+        */  
+        me.getGridSpeedValue = function() {
+            return GRID_SPEED_VALUE;
+        };
+        /**
         * @method getPlayingFieldElement
         * @return {DOM Element} The div representing the playing field (this is where the snake can move).
         */ 
@@ -991,6 +1012,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             }
             
             myFood.randomlyPlaceFood();
+            mySpeed.randomlyPlaceSpeed();
             
             // setup event listeners
             function getMode (mode, speed) {
@@ -1051,6 +1073,14 @@ SNAKE.Board = SNAKE.Board || (function() {
         me.foodEaten = function() {
             elmLengthPanel.innerHTML = "Length: " + mySnake.snakeLength;
             myFood.randomlyPlaceFood();
+        };
+
+        /**
+        * This method is called when the snake has eaten some speed boosters.
+        * @method speedEaten
+        */ 
+        me.speedEaten = function() {
+            mySpeed.randomlyPlaceSpeed();
         };
         
         /**
