@@ -292,11 +292,13 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 grid[newHead.row][newHead.col] = 1;
                 me.eatFood();
                 setTimeout(function(){me.go();}, snakeSpeed);
+                console.log("check if food")
             }
             else if (grid[newHead.row][newHead.col] === playingBoard.getGridSpeedValue()) {
                 grid[newHead.row][newHead.col] = 1;
                 me.eatSpeed();
                 setTimeout(function(){me.go();}, snakeSpeed);
+                console.log("check if speed");
             }
         };
         
@@ -305,6 +307,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         * @method eatFood
         */
         me.eatFood = function() {
+            console.log("eatFood called");
             if (blockPool.length <= growthIncr) {
                 createBlocks(growthIncr*2);
             }
@@ -331,10 +334,10 @@ SNAKE.Snake = SNAKE.Snake || (function() {
 
         me.eatSpeed = function() {
             if (Math.floor(Math.random()*3) > 0) {
-                snakeSpeed -= 5;
+                snakeSpeed -= 50;
             }
             else {
-                snakeSpeed += 5;
+                snakeSpeed += 50;
             }
 
             playingBoard.speedEaten();
@@ -701,9 +704,9 @@ SNAKE.Board = SNAKE.Board || (function() {
             MAX_BOARD_ROWS = 250,
             blockWidth = 20,
             blockHeight = 20,
-            GRID_FOOD_VALUE = -1, // the value of a spot on the board that represents snake food, MUST BE NEGATIVE
+            GRID_FOOD_VALUE = -1, // the value of a spot on the board that represents snake food, MUST BE NEGATIVE and unique
             myFood,
-            GRID_SPEED_VALUE = -1, //VALUE OF A SPOT ON THE BOARD THAT REPRESENTS SNAKE SPEED BOOSTER, MUST BE NEGATIVE
+            GRID_SPEED_VALUE = -2, //VALUE OF A SPOT ON THE BOARD THAT REPRESENTS SNAKE SPEED BOOSTER, MUST BE NEGATIVE and unique
             mySpeed,
             mySnake,
             boardState = 1, // 0: in active; 1: awaiting game start; 2: playing game
@@ -1071,6 +1074,7 @@ SNAKE.Board = SNAKE.Board || (function() {
         * @method foodEaten
         */ 
         me.foodEaten = function() {
+            console.log("food eater");
             elmLengthPanel.innerHTML = "Length: " + mySnake.snakeLength;
             myFood.randomlyPlaceFood();
         };
@@ -1080,6 +1084,7 @@ SNAKE.Board = SNAKE.Board || (function() {
         * @method speedEaten
         */ 
         me.speedEaten = function() {
+            console.log("speed eaten");
             mySpeed.randomlyPlaceSpeed();
         };
         
