@@ -120,11 +120,11 @@ a.snake-link:hover {
 }
 
 
-/* Snake Food Stuff */
-.snake-food-block {
+/* Snake Powerup Stuff */
+.snake-speed-block {
     margin: 0px;
     padding: 0px;
-    background-image: url('./images/themes/breakfast_theme-butter.png');
+    background-image: url('./images/boosts/speed_boost.png');
     border: 2px solid #3E2E44;
     position: absolute;
 }

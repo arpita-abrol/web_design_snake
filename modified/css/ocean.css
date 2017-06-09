@@ -7,7 +7,7 @@ http://patorjk.com/games/snake
 body {
     margin: 0px;
     padding: 0px;
-    background-image: url('./images/themes/night_theme-back.jpg');
+    background-image: url('./images/themes/ocean_theme-back.jpg');
     background-repeat: repeat;
 }
 
@@ -24,7 +24,7 @@ p {
 /*---- Change Buttons: Top section ----*/
 #selections {
     margin: 0px auto;
-    background-color: #f2e0e0;
+    background-color: #b0d0e9;
     border: 1px solid white;
     width: 267px;
     padding-left: 10px;
@@ -35,13 +35,13 @@ p {
 #mode-wrapper {
     font-family: Verdana, arial, helvetica, sans-serif; 
     font-size: 14px;
-    color: #003366;
+    color: #006767;
 }
 
 select, button {
     border: black;
     color: white;
-    background: #003366;
+    background: #006767;
 }
 
 #high-score {
@@ -66,7 +66,7 @@ select, button {
     margin: 0px;
     padding: 0px;
     position: absolute;
-    background-color: #f2e0e0;
+    background-color: #b0d0e9;
 }
 
 .snake-game-container { /* Main background- border */
@@ -74,7 +74,7 @@ select, button {
     padding: 0px;
     border: 2px solid white;
     zoom: 1;
-    background-color: #003366;
+    background-color: #006767;
     position: relative;
 }
 
@@ -86,7 +86,7 @@ select, button {
     font-size: 14px;
     color: white;
     text-align: center;
-    background-color: #003366;
+    background-color: #006767;
     padding: 8px;
     margin: 0px;
 }
@@ -112,7 +112,7 @@ a.snake-link:hover {
 
 .snake-snakebody-alive { /* Snake Body block */
 
-    background-image: url('./images/themes/night_theme-head.png'); /* NOte: currently too light */;
+    background-image: url('./images/themes/ocean_theme-head.png');
 
 }
 .snake-snakebody-dead { /* Snake Body dead block */
@@ -124,16 +124,17 @@ a.snake-link:hover {
 .snake-food-block {
     margin: 0px;
     padding: 0px;
-    background-image: url('./images/themes/night_theme-ship.png');
+    background-image: url('./images/themes/ocean_theme-food.png');
     border: 2px solid #3E2E44;
     position: absolute;
 }
 
 /* Snake Powerup Stuff */
-.snake-powerup-block {
+.snake-speed-block {
     margin: 0px;
     padding: 0px;
-    border: none;
+    background-image: url('./images/boosts/speed_boost.png');
+    border: 2px solid #3E2E44;
     position: absolute;
 }
 

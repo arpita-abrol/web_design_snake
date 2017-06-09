@@ -7,6 +7,7 @@
 GLOBAL VARIABLES
 **/
 var SNAKE = SNAKE || {};
+var speedPresent = false;
 
 /**
 * @method addEventListener
@@ -122,6 +123,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             xPosShift = [],
             yPosShift = [],
             snakeSpeed = 75,
+            //speedPresent = false,
             isDead = false,
             isPaused = false;
             function getMode (mode, speed) {
@@ -188,6 +190,9 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         };
         me.getPaused = function() {
             return isPaused;
+        };
+        me.getSpeedPresent = function() {
+          return speedPresent;  
         };
         
         /**
@@ -292,14 +297,23 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 grid[newHead.row][newHead.col] = 1;
                 me.eatFood();
                 setTimeout(function(){me.go();}, snakeSpeed);
-                console.log("check if food")
             }
             else if (grid[newHead.row][newHead.col] === playingBoard.getGridSpeedValue()) {
                 grid[newHead.row][newHead.col] = 1;
+                speedPresent = false;
                 me.eatSpeed();
                 setTimeout(function(){me.go();}, snakeSpeed);
-                console.log("check if speed");
+                //console.log(speedPresent);
             }
+
+            // handles speed block generation
+            tmp = Math.floor(Math.random()*(10000/snakeSpeed+50));
+            if( speedPresent === false && tmp == 0 ) {
+                speedPresent = true;
+                me.eatSpeed();
+                //console.log(speedPresent);
+            }
+            console.log(snakeSpeed);
         };
         
         /**
@@ -307,7 +321,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         * @method eatFood
         */
         me.eatFood = function() {
-            console.log("eatFood called");
+            //console.log("eatFood called");
             if (blockPool.length <= growthIncr) {
                 createBlocks(growthIncr*2);
             }
@@ -333,11 +347,13 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         };
 
         me.eatSpeed = function() {
-            if (Math.floor(Math.random()*3) > 0) {
-                snakeSpeed -= 50;
-            }
-            else {
-                snakeSpeed += 50;
+            if( speedPresent == false ) { // if false, then the block is in the process of being removed
+                if (Math.floor(Math.random()*3) > 0) {
+                    snakeSpeed += 10;
+                }
+                else {
+                    snakeSpeed -= 10;
+                }
             }
 
             playingBoard.speedEaten();
@@ -395,6 +411,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             me.snakeHead.prev = me.snakeHead;
             me.snakeTail = me.snakeHead;
             me.snakeLength = 1;
+            // me.snakeSpeed = 
             
             for (var ii = 0; ii < blocks.length; ii++) {
                 blocks[ii].elm.style.left = "-1000px";
@@ -597,6 +614,7 @@ SNAKE.Speed = SNAKE.Speed || (function() {
                 playingBoard.grid[fRow][fColumn] = 0; 
             }
 
+        
             var row = 0, col = 0, numTries = 0;
 
             var maxRows = playingBoard.grid.length-1;
@@ -616,12 +634,20 @@ SNAKE.Speed = SNAKE.Speed || (function() {
                 } 
             }
 
-            playingBoard.grid[row][col] = playingBoard.getGridSpeedValue();
-            fRow = row;
-            fColumn = col;
-            elmSpeed.style.top = row * playingBoard.getBlockHeight() + "px";
-            elmSpeed.style.left = col * playingBoard.getBlockWidth() + "px";
+            if( speedPresent == false ) {
+                elmSpeed.style.top = -1111 * playingBoard.getBlockHeight() + "px";
+                elmSpeed.style.left = -1111 * playingBoard.getBlockWidth() + "px";
+                return;
+            }
+            else {
+                playingBoard.grid[row][col] = playingBoard.getGridSpeedValue();
+                fRow = row;
+                fColumn = col;
+                elmSpeed.style.top = row * playingBoard.getBlockHeight() + "px";
+                elmSpeed.style.left = col * playingBoard.getBlockWidth() + "px";
+            }
         };
+
     };
 })();
 
@@ -706,7 +732,8 @@ SNAKE.Board = SNAKE.Board || (function() {
             blockHeight = 20,
             GRID_FOOD_VALUE = -1, // the value of a spot on the board that represents snake food, MUST BE NEGATIVE and unique
             myFood,
-            GRID_SPEED_VALUE = -2, //VALUE OF A SPOT ON THE BOARD THAT REPRESENTS SNAKE SPEED BOOSTER, MUST BE NEGATIVE and unique
+            GRID_SPEED_VALUE = -2, // VALUE OF A SPOT ON THE BOARD THAT REPRESENTS SNAKE SPEED BOOSTER, MUST BE NEGATIVE and unique
+            // speed_present = false, // if speed booster is currently on the board
             mySpeed,
             mySnake,
             boardState = 1, // 0: in active; 1: awaiting game start; 2: playing game
@@ -1015,7 +1042,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             }
             
             myFood.randomlyPlaceFood();
-            mySpeed.randomlyPlaceSpeed();
+            // mySpeed.randomlyPlaceSpeed();
             
             // setup event listeners
             function getMode (mode, speed) {
@@ -1074,7 +1101,7 @@ SNAKE.Board = SNAKE.Board || (function() {
         * @method foodEaten
         */ 
         me.foodEaten = function() {
-            console.log("food eater");
+            //console.log("food eater");
             elmLengthPanel.innerHTML = "Length: " + mySnake.snakeLength;
             myFood.randomlyPlaceFood();
         };
@@ -1084,7 +1111,7 @@ SNAKE.Board = SNAKE.Board || (function() {
         * @method speedEaten
         */ 
         me.speedEaten = function() {
-            console.log("speed eaten");
+            //console.log("speed eaten");
             mySpeed.randomlyPlaceSpeed();
         };
         
