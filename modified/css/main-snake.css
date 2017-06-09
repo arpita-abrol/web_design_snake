@@ -11,7 +11,8 @@ body {
     background-repeat: repeat;
 }
 
-p {
+a, p, #about {
+    margin: 0px auto;
     font-family: Verdana, arial, helvetica, sans-serif; 
     font-size: 16px;
     -webkit-text-fill-color: white; /* Will override color (regardless of order) */
